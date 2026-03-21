@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from config import SMTP_SERVER, SMTP_PORT, SENDER_EMAIL, SENDER_PASSWORD, CSV_FILE_PATH, MAX_EMAILS
+from config import SMTP_SERVER, SMTP_PORT, SENDER_EMAIL, SENDER_PASSWORD, CSV_FILE_PATH
 
 SUBJECT = "You Are Invited: NEXUS SPRING OF CODE 2026 (NSoC) 🎉"
 
