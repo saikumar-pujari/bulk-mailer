@@ -142,6 +142,7 @@ def send_bulk_emails():
         return
 
     # LIMIT TO FIRST MAX_EMAILS mails TO PREVENT GMAIL BAN
+    MAX_EMAILS = 400
     if len(recipients) > MAX_EMAILS:
         print(f"⚠️ Warning: Found {len(recipients)} emails in CSV.")
         print(f"🛡️ Safety cap engaged: Only sending to the first {MAX_EMAILS} to protect your Gmail account.")
