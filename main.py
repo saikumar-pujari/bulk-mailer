@@ -128,13 +128,12 @@ def send_bulk_emails():
         with open(CSV_FILE_PATH, mode='r', encoding='utf-8-sig') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                if 'email' in row and row['email'].strip():
-                    # Extract the first name for personalization, default to 'Developer' if empty or error founding
-                    full_name = row.get('full_name', 'Developer').strip() or 'Developer'
-                    first_name = full_name.split()[0]
-                    
+                email = row.get('email', '').strip() #avoid duplication of code!
+                if email:
+                    full_name = row.get('full_name', '').strip() #if users enters ' '(space only) that will get reduce to ''
+                    first_name = full_name.split()[0] if full_name else 'Developer' # check the nama here! 
                     recipients.append({
-                        'email': row['email'].strip(),
+                        'email': email,
                         'name': first_name
                     })
     except FileNotFoundError:
@@ -143,6 +142,7 @@ def send_bulk_emails():
 
     # LIMIT TO FIRST MAX_EMAILS mails TO PREVENT GMAIL BAN
     MAX_EMAILS = 400
+    #Google Limits to 500 mails only for Free acount and sending more than these will result in spam account!
     if len(recipients) > MAX_EMAILS:
         print(f"⚠️ Warning: Found {len(recipients)} emails in CSV.")
         print(f"🛡️ Safety cap engaged: Only sending to the first {MAX_EMAILS} to protect your Gmail account.")
